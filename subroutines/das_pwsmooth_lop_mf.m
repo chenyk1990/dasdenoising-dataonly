@@ -16,7 +16,6 @@ if ndn~=nds
 end
 
 if ns~=1
-    fprintf('nds=%d, n1=%d, n2=%d\n',nds,n1,n2);
     ds=zeros(nds,1);
 %     [ dn,ds ] = yc_adjnull( adj,add,ndn,nds,dn,ds );
     
