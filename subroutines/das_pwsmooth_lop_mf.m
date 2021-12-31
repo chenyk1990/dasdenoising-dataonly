@@ -1,5 +1,5 @@
 function [dn,ds] = das_pwsmooth_lop_mf(dip,w1,n1,n2,ns,order,eps,ndn,nds,type_mf,ifsmooth,dn,ds)
-% str_pwsmooth_lop: plane-wave smoothing
+% das_pwsmooth_lop_mf: plane-wave median filtering
 %
 % INPUT:
 % dn: model   noisy data
@@ -9,12 +9,8 @@ function [dn,ds] = das_pwsmooth_lop_mf(dip,w1,n1,n2,ns,order,eps,ndn,nds,type_mf
 % eps: regularization (default:0.01);
 
 % OUTPUT:
-% ds:  smoothed data
+% ds:  filtered data
 %
-% Copyright (c) 2021 by the Society of Exploration Geophysicists.
-% You must read and accept usage terms at:
-%    https://software.seg.org/disclaimer.txt before use.
-
 if ndn~=nds
     error('Wrong size %d != %d',ndn,nds);
 end
