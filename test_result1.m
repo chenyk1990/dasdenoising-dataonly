@@ -27,6 +27,8 @@ for ii=3
     [~,d1]=das_pwsmooth_lop_mf(pp,[],n1,n2,ns,order,eps,n1*n2,n1*n2,type_mf,ifsmooth,d1,[]);%SOMF
     d1=reshape(d1,n1,n2);
     figure(3);das_imagesc([eq,d1,eq-d1]);
+    d_bpsomf=d1;
+
     
     %% FK
     d1=d1-das_fk_dip(d1,0.02);%
