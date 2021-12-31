@@ -1,5 +1,7 @@
 clc;clear;close all;
-
+%please download seistr package from https://github.com/chenyk1990/seistr
+addpath(genpath('seistr/'));
+addpath(genpath('subroutines/'));
 % dir('../downloads_read/seg*.rsf')
 % !mkdir -p bpfk
 % !mkdir -p fk
@@ -9,44 +11,44 @@ clc;clear;close all;
 % !mkdir -p bpmffk
 % !mkdir -p bpmf
 % !mkdir -p bpsomffk
-seg=zeros(2000,960);
+eq=zeros(2000,960);
 % for ii=1:60
-[n1,n2]=size(seg);
+[n1,n2]=size(eq);
 for ii=3
     if ~ismember(ii,[14,16,17,27,47,52])
-        strcat('../downloads_read/seg-',num2str(ii),'.rsf')
-        rsf_read(seg,strcat('../downloads_read/seg-',num2str(ii),'.rsf'));
+        strcat('mat_raw/eq-',num2str(ii),'.mat')
+        load(strcat('mat_raw/eq-',num2str(ii),'.mat'));
     end
-    d1=seg;
-    d1=yc_bandpass(d1,0.0005,0,200,6,6,0,0);%
+    d1=d1;
+    eq=d1;
+    d1=das_bandpass(d1,0.0005,0,200,6,6,0,0);%
     d_bp=d1;
-    figure(1);yc_imagesc([seg,d1,seg-d1]);
+    figure(1);das_imagesc([eq,d1,eq-d1]);
     
-    %     d11=yc_mf(d1,20,1,2);%MF
-    %     figure(2);yc_imagesc([seg,d11,seg-d11]);
+    %     d11=das_mf(d1,20,1,2);%MF
+    %     figure(2);das_imagesc([eq,d11,eq-d11]);
     
     %% SOMF
-    %     [pp]=yc_dip2d_i(d1,2,10,2,0.01, 1, 0.000001,[50,50,1],1);%figure;yc_imagesc(pp);colormap(jet);
+        [pp]=str_dip2d(d1,2,10,2,0.01, 1, 0.000001,[50,50,1],1);%figure;das_imagesc(pp);colormap(jet);
     ns=8;
     order=2;
     eps=0.01;
     type_mf=0;ifsmooth=0;
-    %     [~,d1]=pwsmooth_lop_mf(0,0,pp,[],n1,n2,ns,order,eps,n1*n2,n1*n2,type_mf,ifsmooth,d1,[]);%SOMF
-    % 	d1=reshape(d1,n1,n2);
-    load(strcat('mat_bpsomf/seg-',num2str(ii),'.mat'));
-    %     save(strcat('mat_bpsomf/seg-',num2str(ii),'.mat'),'d1','-v7.3');
-    figure(3);yc_imagesc([seg,d1,seg-d1]);
+        [~,d1]=das_pwsmooth_lop_mf(pp,[],n1,n2,ns,order,eps,n1*n2,n1*n2,type_mf,ifsmooth,d1,[]);%SOMF
+    	d1=reshape(d1,n1,n2);
+%     load(strcat('mat_bpsomf/eq-',num2str(ii),'.mat'));
+    %     save(strcat('mat_bpsomf/eq-',num2str(ii),'.mat'),'d1','-v7.3');
+    figure(3);das_imagesc([eq,d1,eq-d1]);
     d_bpsomf=d1;
     
-    d1=d1-yc_fk_dip(d1,0.02);%
+    d1=d1-das_fk_dip(d1,0.02);%
     d_bpsomffk=d1;
-    %     load(strcat('mat_bpsomffk/seg-',num2str(ii),'.mat'));
-    %     save(strcat('mat_bpsomffk/seg-',num2str(ii),'.mat'),'d1','-v7.3');
+    %     load(strcat('mat_bpsomffk/eq-',num2str(ii),'.mat'));
+    %     save(strcat('mat_bpsomffk/eq-',num2str(ii),'.mat'),'d1','-v7.3');
     
-    figure(4);yc_imagesc([seg,d1,seg-d1]);
-    %     print(gcf,'-djpeg','-r300',strcat('bpsomffk/seg-',num2str(ii),'.jpg'));
+    figure(4);das_imagesc([eq,d1,eq-d1]);
+    %     print(gcf,'-djpeg','-r300',strcat('bpsomffk/eq-',num2str(ii),'.jpg'));
 end
-
 
 %ii=3: FORGE_78-32_iDASv3-P11_UTC190423213209.sgy, 1484, 3.394402, 0.910045
 
@@ -56,14 +58,14 @@ t=[0:n1]*0.0005;
 x=1:n2;
 ngap=50;
 
-seg2=[seg,zeros(n1,ngap),zeros(size(seg))];
-d_bp2=[d_bp,zeros(n1,ngap),seg-d_bp];
-d_bpsomf2=[d_bpsomf,zeros(n1,ngap),seg-d_bpsomf];
-d_bpsomffk2=[d_bpsomffk,zeros(n1,ngap),seg-d_bpsomffk];
+eq2=[eq,zeros(n1,ngap),zeros(size(eq))];
+d_bp2=[d_bp,zeros(n1,ngap),eq-d_bp];
+d_bpsomf2=[d_bpsomf,zeros(n1,ngap),eq-d_bpsomf];
+d_bpsomffk2=[d_bpsomffk,zeros(n1,ngap),eq-d_bpsomffk];
 x=1:ngap+n2*2;
 
 figure('units','normalized','Position',[0.1 0.1 0.8, 0.9],'color','w');
-subplot(2,2,1);das_imagesc(seg2,100,2,x,t);
+subplot(2,2,1);das_imagesc(eq2,100,2,x,t);
 ylabel('Time (s)','Fontsize',20,'fontweight','bold');
 xlabel('Channel','Fontsize',20,'fontweight','bold');
 set(gca,'Linewidth',2,'Fontsize',20,'Fontweight','bold');
@@ -112,7 +114,7 @@ print(gcf,'-depsc','-r300','result1.eps');
 
 inds1=1:400;
 figure('units','normalized','Position',[0.1 0.1 0.8, 0.9],'color','w');
-subplot(2,2,1);das_imagesc(seg2(inds1,:),100,2,x,t(inds1));
+subplot(2,2,1);das_imagesc(eq2(inds1,:),100,2,x,t(inds1));
 ylabel('Time (s)','Fontsize',20,'fontweight','bold');
 xlabel('Channel','Fontsize',20,'fontweight','bold');
 set(gca,'Linewidth',2,'Fontsize',20,'Fontweight','bold');
@@ -156,7 +158,7 @@ print(gcf,'-depsc','-r300','result2.eps');
 
 %% combined figure
 figure('units','normalized','Position',[0.0 0.0 0.5, 1],'color','w');
-subplot(4,2,1);das_imagesc(seg2,100,2,x,t);
+subplot(4,2,1);das_imagesc(eq2,100,2,x,t);
 ylabel('Time (s)','Fontsize',10,'fontweight','bold');
 xlabel('Channel','Fontsize',10,'fontweight','bold');
 set(gca,'Linewidth',2,'Fontsize',10,'Fontweight','bold');
@@ -206,7 +208,7 @@ annotation(gcf,'rectangle',[0.57 0.675 0.334 0.030],'linewidth',2,'color','g');
 
 
 inds1=1:400;
-subplot(4,2,5);das_imagesc(seg2(inds1,:),100,2,x,t(inds1));
+subplot(4,2,5);das_imagesc(eq2(inds1,:),100,2,x,t(inds1));
 ylabel('Time (s)','Fontsize',10,'fontweight','bold');
 xlabel('Channel','Fontsize',10,'fontweight','bold');
 set(gca,'Linewidth',2,'Fontsize',10,'Fontweight','bold');
