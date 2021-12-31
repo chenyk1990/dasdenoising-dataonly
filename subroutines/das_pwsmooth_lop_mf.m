@@ -38,7 +38,6 @@ if ns~=1
 
 %     [dn,utmp]=pwspray_lop(0,0,n12,n12*ns2,dn,utmp,dip,ns,n1,n2,order,eps);
     [utmp] = str_pwspray_lop2d(dn,dip,ns,order,eps);
-    size(utmp)
     u=reshape(utmp,n1,ns2,n2);
     
     for i2=1:n2
@@ -49,8 +48,6 @@ if ns~=1
         end
     end
     
-    fprintf('size of u(:,:,i2)\n');
-    [n1,n2,ns]
     if ifsmooth %with smoothing or only with median filtering
         for i2=0:n2-1
             for i1=0:n1-1
