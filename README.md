@@ -31,6 +31,7 @@ NOTES:
 
 7. The directory mat_bpsomffk stores all the denoised DAS data. 
 
+8. The current version is based on Matlab. Future versions will also support Python and be optimized regarding computational efficiency. 
 
 
 
