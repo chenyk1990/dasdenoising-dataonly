@@ -1,5 +1,5 @@
 function [] = das_imagesc(data,pclip,mode,x,z)
-%yc_imagesc
+%das_imagesc
 %   fast plot data using pclip
 % Input:
 %   data: input data
