@@ -2,17 +2,8 @@ clc;clear;close all;
 %please download seistr package from https://github.com/chenyk1990/seistr
 addpath(genpath('seistr/'));
 addpath(genpath('subroutines/'));
-% dir('../downloads_read/seg*.rsf')
-% !mkdir -p bpfk
-% !mkdir -p fk
-% !mkdir -p mf
-% !mkdir -p somf
-% !mkdir -p bpfk
-% !mkdir -p bpmffk
-% !mkdir -p bpmf
-% !mkdir -p bpsomffk
+
 eq=zeros(2000,960);
-% for ii=1:60
 [n1,n2]=size(eq);
 for ii=3
     if ~ismember(ii,[14,16,17,27,47,52])
@@ -21,38 +12,29 @@ for ii=3
     end
     d1=d1;
     eq=d1;
+    
+    %% BP
     d1=das_bandpass(d1,0.0005,0,200,6,6,0,0);%
     d_bp=d1;
     figure(1);das_imagesc([eq,d1,eq-d1]);
     
-    %     d11=das_mf(d1,20,1,2);%MF
-    %     figure(2);das_imagesc([eq,d11,eq-d11]);
-    
     %% SOMF
-        [pp]=str_dip2d(d1,2,10,2,0.01, 1, 0.000001,[50,50,1],1);%figure;das_imagesc(pp);colormap(jet);
+    [pp]=str_dip2d(d1,2,10,2,0.01, 1, 0.000001,[50,50,1],1);%figure;das_imagesc(pp);colormap(jet);
     ns=8;
     order=2;
     eps=0.01;
     type_mf=0;ifsmooth=0;
-        [~,d1]=das_pwsmooth_lop_mf(pp,[],n1,n2,ns,order,eps,n1*n2,n1*n2,type_mf,ifsmooth,d1,[]);%SOMF
-    	d1=reshape(d1,n1,n2);
-%     load(strcat('mat_bpsomf/eq-',num2str(ii),'.mat'));
-    %     save(strcat('mat_bpsomf/eq-',num2str(ii),'.mat'),'d1','-v7.3');
+    [~,d1]=das_pwsmooth_lop_mf(pp,[],n1,n2,ns,order,eps,n1*n2,n1*n2,type_mf,ifsmooth,d1,[]);%SOMF
+    d1=reshape(d1,n1,n2);
     figure(3);das_imagesc([eq,d1,eq-d1]);
-    d_bpsomf=d1;
     
+    %% FK
     d1=d1-das_fk_dip(d1,0.02);%
     d_bpsomffk=d1;
-    %     load(strcat('mat_bpsomffk/eq-',num2str(ii),'.mat'));
-    %     save(strcat('mat_bpsomffk/eq-',num2str(ii),'.mat'),'d1','-v7.3');
-    
     figure(4);das_imagesc([eq,d1,eq-d1]);
-    %     print(gcf,'-djpeg','-r300',strcat('bpsomffk/eq-',num2str(ii),'.jpg'));
 end
 
 %ii=3: FORGE_78-32_iDASv3-P11_UTC190423213209.sgy, 1484, 3.394402, 0.910045
-
-%ii=10 is good
 
 t=[0:n1]*0.0005;
 x=1:n2;
