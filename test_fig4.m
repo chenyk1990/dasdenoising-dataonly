@@ -1,3 +1,7 @@
+% Script to plot Figure 4
+% BY Yangkang Chen
+% Dec, 21, 2021
+% This script takes about 5-10 minutes
 clc;clear;close all;
 %please download seistr package from https://github.com/chenyk1990/seistr
 addpath(genpath('seistr/'));

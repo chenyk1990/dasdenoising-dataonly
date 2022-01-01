@@ -1,3 +1,4 @@
+% This script takes about 5-10 minutes
 clc;clear;close all;
 %please download seistr package from https://github.com/chenyk1990/seistr
 addpath(genpath('seistr/'));
