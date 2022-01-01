@@ -8,7 +8,6 @@ addpath(genpath('subroutines/'));
 %% load data
 eq=zeros(2000,960);
 [n1,n2]=size(eq);
-ii=3;%reasonable
 ii=1;
 if ~ismember(ii,[14,16,17,27,47,52])
     load(strcat('mat_raw/eq-',num2str(ii),'.mat'));
