@@ -3,6 +3,7 @@
 % Dec, 22, 2021
 
 clc;clear;close all;
+addpath(genpath('subroutines/'));
 
 NOs=[1,20,10,25,11,2];
 labels={...                                          %P-arrival sample NO from the SEGY file

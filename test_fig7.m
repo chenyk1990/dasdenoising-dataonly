@@ -3,7 +3,7 @@
 % Dec, 23, 2021
 
 clc;clear;close all;
-% addpath(genpath('~/chenyk/matlibcyk'));
+addpath(genpath('subroutines/'));
 
 %% load data
 eq=zeros(2000,960);
