@@ -12,36 +12,15 @@ dt=0.0005;
 t=[0:nt-1]*dt;
 h=[0:nx-1]*dx+x0;
 
-%% generate noise
-ne=70;%number of events;
-% dt = 4./1000;
-% tmax = dt*511;
-h=[0:nx-1]*dx;
-tmax=(nt-1)*dt;
-tau=linspace(5*dt,tmax-5*dt,ne);
-p=zeros(ne,1);
-randn('state',201819202122);
-amp = 1+0.1*randn(ne,1);%[1., -1.,1];
-f0 = 30;
-snr = 2000;%default snr=2
-L = 6;
-seed=201517;
-nn=fevents(snr,dt,f0,tmax,h,tau,p,amp,L,seed);
-% figure;imagesc(nn);
-
-%vertical
-ne=20;
-xmax=(nx-1)*dx;
-h=[0:nt-1]*dt;
-tau=linspace(5*dx,xmax-5*dx,ne);
-nn2=fevents(snr,dx,f0,xmax,h,tau,p,amp,L,seed);
+%% load noise
+load fig2noise.mat
 
 randn('state',211111);
-nnn=seisdither(nn,round(das_meanf(20*randn(1,nx),20,1,2)));
+nnn=das_seisdither(nn,round(das_meanf(20*randn(1,nx),20,1,2)));
 % figure;imagesc([nn,nnn]);
 
 randn('state',2111112);
-nnn2=seisdither(nn2,round(das_meanfs(10*randn(1,nt),20,1,2,100)));
+nnn2=das_seisdither(nn2,round(das_meanfs(10*randn(1,nt),20,1,2,100)));
 % figure;imagesc([nn2,nnn2]);
 
 % dn=d+0.2*nn+0.2*nn2';

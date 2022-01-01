@@ -40,9 +40,9 @@ d2 = real(d2(1:nt,:));
 
 
 %% Frequency spectrum
-[fd, f] = yc_fft1(d, nt, dt);
-[fd1, f] = yc_fft1(d1,nt, dt);
-[fd2, f] = yc_fft1(d2,nt, dt);
+[fd, f] = das_fft1(d, nt, dt);
+[fd1, f] = das_fft1(d1,nt, dt);
+[fd2, f] = das_fft1(d2,nt, dt);
 
 %% visualize
 figure('units','normalized','Position',[0.2 0.4 0.4, 1],'color','w');
@@ -62,9 +62,9 @@ nphis=[2,4,6,8,10,12,14,16,18,20];
 D=zeros(nt,length(nphis));
 les=[];
 for i=1:length(nphis)
-    D(:,i)=yc_bandpass(d,dt,0,50,6,nphis(i),0,0);
+    D(:,i)=das_bandpass(d,dt,0,50,6,nphis(i),0,0);
 end
-FD= yc_fft1(D, nt, dt);
+FD= das_fft1(D, nt, dt);
 
 subplot(2,1,2);
 plot(f,abs(FD(:,1)),'linewidth',2);hold on;

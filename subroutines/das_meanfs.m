@@ -40,12 +40,12 @@ end
 dtmp=din;
 if axis==3
 for itime=1:ntimes
-dtmp=yc_meanf(dtmp,nfw,ifb,1);
-dtmp=yc_meanf(dtmp,nfw,ifb,2);
+dtmp=das_meanf(dtmp,nfw,ifb,1);
+dtmp=das_meanf(dtmp,nfw,ifb,2);
 end    
 else
 for itime=1:ntimes
-dtmp=yc_meanf(dtmp,nfw,ifb,axis);
+dtmp=das_meanf(dtmp,nfw,ifb,axis);
 end
 end
 dout=dtmp;
