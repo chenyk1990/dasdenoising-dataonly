@@ -11,7 +11,6 @@ for ii=3
         strcat('mat_raw/eq-',num2str(ii),'.mat')
         load(strcat('mat_raw/eq-',num2str(ii),'.mat'));
     end
-    d1=d1;
     eq=d1;
     
     %% BP
@@ -21,16 +20,11 @@ for ii=3
     
     %% SOMF
     [pp]=str_dip2d(d1,2,10,2,0.01, 1, 0.000001,[50,50,1],1);%figure;das_imagesc(pp);colormap(jet);
-    ns=8;
-    order=2;
-    eps=0.01;
-    type_mf=0;ifsmooth=0;
-    [~,d1]=das_pwsmooth_lop_mf(pp,[],n1,n2,ns,order,eps,n1*n2,n1*n2,type_mf,ifsmooth,d1,[]);%SOMF
-    d1=reshape(d1,n1,n2);
+    ns=8;order=2;eps=0.01;
+    d1=das_pwsmooth_lop_mf(d1,pp,ns,order,eps,0);%SOMF
     figure(3);das_imagesc([eq,d1,eq-d1]);
     d_bpsomf=d1;
 
-    
     %% FK
     d1=d1-das_fk_dip(d1,0.02);%
     d_bpsomffk=d1;

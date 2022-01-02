@@ -43,27 +43,16 @@ dh=(1-0.2)/nr;dw=0.37;
 dh1=dh/2;%axis height
 t=[0:1999]*0.0005;
 for ir=nr:-1:1
-%     fid=fopen(strcat('/Users/chenyk/chenyk/texnet/texnet2020galz/process/stations_binary/',stname{ir},'.bin'),'r');
-%     wav=fread(fid,[12000,1],'double');
     wav0=traces0(:,ir);
     wav=traces(:,ir);
-%     wav=das_scale(wav(:),1);
     a1=axes('Parent',gcf,'Position',[x0,y0+dy+dh*(nr-ir),dw,dh1]);
     plot(t,wav0,'k','linewidth',2); hold on; axis off;
     plot(t,wav,'r','linewidth',2);
     plot([times0(ir),times0(ir)],[min(wav),max(wav)],'g','linewidth',2);
     plot([times(ir),times(ir)],[min(wav),max(wav)],'b','linewidth',2);
-%     if ir~=7
-%     ylim([-1,1]);
-%     else
-%     ylim([-1,1]);
-%     end
     
-%     fid=fopen(strcat('/Users/chenyk/chenyk/texnet/texnet2020galz/process/stations_binary/',stname{ir+15},'.bin'),'r');
-%     wav=fread(fid,[12000,1],'double');
     wav0=traces0(:,ir+15);
     wav=traces(:,ir+15);
-%     wav=das_scale(wav(:),1);
     a1=axes('Parent',gcf,'Position',[x0+0.5,y0+dy+dh*(nr-ir),dw,dh1]);
     plot(t,wav0,'k','linewidth',2);hold on; axis off; 
     plot(t,wav,'r','linewidth',2);

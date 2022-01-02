@@ -23,12 +23,8 @@ for ii=3
     
     %% SOMF
     [pp]=str_dip2d(d1,2,10,2,0.01, 1, 0.000001,[50,50,1],1);%figure;das_imagesc(pp);colormap(jet);
-    ns=8;
-    order=2;
-    eps=0.01;
-    type_mf=0;ifsmooth=0;
-    [~,d1]=das_pwsmooth_lop_mf(pp,[],n1,n2,ns,order,eps,n1*n2,n1*n2,type_mf,ifsmooth,d1,[]);%SOMF
-    d1=reshape(d1,n1,n2);
+    ns=8;order=2;eps=0.01;
+    d1=das_pwsmooth_lop_mf(d1,pp,ns,order,eps,0);%SOMF
     d_bpsomf=d1;
     
     %% FK
@@ -48,25 +44,6 @@ d_bp2=[d_bp,zeros(n1,ngap),eq-d_bp];
 d_bpsomf2=[d_bpsomf,zeros(n1,ngap),eq-d_bpsomf];
 d_bpsomffk2=[d_bpsomffk,zeros(n1,ngap),eq-d_bpsomffk];
 x=1:ngap+n2*2;
-
-% addpath(genpath('~/chenyk/matlibcyk'));
-%% generate fake data
-% randn('state',202021);
-% wav0=yc_ricker(32,0.004,0.2)*1.4+0.01*randn(51,1);
-% wav=yc_ricker(30,0.004,0.2);
-%figure;plot(wav0);hold on;plot(wav);
-% t=[1:51];
-
-% obs=wav0(:)*ones(1,30);
-% syn=wav(:)*ones(1,30);
-
-% eq=obs;d_bp=obs;d_bpsomf=obs; %VRT components
-% syn1=syn;syn2=syn;syn3=syn; %VRT components
-
-%name
-for i=1:30
-    stname{i}=strcat('sta',num2str(i));
-end
 
 %% begin plotting
 % figure('units','normalized','Position',[0.0 0.0 0.45, 1],'color','w');

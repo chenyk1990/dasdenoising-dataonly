@@ -109,8 +109,3 @@ title('FK spectrum (w=0.02)','Fontsize',20,'fontweight','bold');
 set(gca,'Linewidth',2,'Fontsize',20,'Fontweight','bold');
 ylim([0,20]);
 print(gcf,'-depsc','-r300','fig3.eps');
-
-
-
-
-% 
