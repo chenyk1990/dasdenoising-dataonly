@@ -28,12 +28,6 @@ if ns~=1
         end
     end
     
-%     for i2=1:n2
-%         for i1=1:n1
-%             ds(i1,i2)=ds(i1,i2)+u(i1+1,ns+1,i2);
-%         end
-%     end
-%     
     ds=squeeze(u(:,ns+1,:));
 else
     ds=dn;
