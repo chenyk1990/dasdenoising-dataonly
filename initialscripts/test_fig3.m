@@ -3,7 +3,7 @@
 % Dec, 20, 2021
 
 clc;clear;close all;
-addpath(genpath('subroutines/'));
+addpath(genpath('../subroutines/'));
 
 %% load data
 load micro_sf_3001_334_3.mat

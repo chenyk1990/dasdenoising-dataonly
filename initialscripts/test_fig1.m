@@ -3,7 +3,7 @@
 % Yangkang Chen
 
 clc;clear;close all;
-addpath(genpath('subroutines/'));
+addpath(genpath('../subroutines/'));
 
 nt=1000;dt=0.004;t=[0:nt-1]*dt-1.8;
 d=zeros(nt,1);

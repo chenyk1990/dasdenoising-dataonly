@@ -4,15 +4,15 @@
 % This script takes about 5-10 minutes
 clc;clear;close all;
 %please download seistr package from https://github.com/chenyk1990/seistr
-addpath(genpath('seistr/'));
-addpath(genpath('subroutines/'));
+addpath(genpath('../seistr/'));
+addpath(genpath('../subroutines/'));
 
 eq=zeros(2000,960);
 [n1,n2]=size(eq);
 for ii=3
     if ~ismember(ii,[14,16,17,27,47,52])
-        strcat('mat_raw/eq-',num2str(ii),'.mat')
-        load(strcat('mat_raw/eq-',num2str(ii),'.mat'));
+        strcat('../mat_raw/eq-',num2str(ii),'.mat')
+        load(strcat('../mat_raw/eq-',num2str(ii),'.mat'));
     end
     d1=d1;
     eq=d1;

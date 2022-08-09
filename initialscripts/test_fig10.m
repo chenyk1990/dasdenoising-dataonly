@@ -23,7 +23,7 @@ x=1:n2*5+4*ngap;
 ii=1;
 indt1=10:250;indx1=750:900;
 if ~ismember(NOs(ii),[14,16,17,27,47,52])
-    load(strcat('mat_raw/eq-',num2str(NOs(ii)),'.mat'));
+    load(strcat('../mat_raw/eq-',num2str(NOs(ii)),'.mat'));
 end
 eq=d1;
 %% BP
@@ -33,7 +33,7 @@ d1=d1-das_fk_dip(d1,0.02);%
 d1_mf=d1;
 
 d1_z1=d1_mf(indt1,indx1);
-load(strcat('mat_bpsomffk/eq-',num2str(NOs(ii)),'.mat'));
+load(strcat('../mat_bpsomffk/eq-',num2str(NOs(ii)),'.mat'));
 d1_somf=d1;
 d1_z2=d1_somf(indt1,indx1);
 comp1=[eq,zeros(n1,ngap),d1_mf,zeros(n1,ngap),eq-d1_mf,zeros(n1,ngap),d1_somf,zeros(n1,ngap),eq-d1_somf]; 
@@ -42,7 +42,7 @@ comp1=[eq,zeros(n1,ngap),d1_mf,zeros(n1,ngap),eq-d1_mf,zeros(n1,ngap),d1_somf,ze
 ii=2;
 indt2=50:200;indx2=750:860;
 if ~ismember(NOs(ii),[14,16,17,27,47,52])
-     load(strcat('mat_raw/eq-',num2str(NOs(ii)),'.mat'));
+     load(strcat('../mat_raw/eq-',num2str(NOs(ii)),'.mat'));
 end
 eq=d1;
 %% BP
@@ -52,7 +52,7 @@ d1=d1-das_fk_dip(d1,0.02);%
 d1_mf=d1;
 
 d2_z1=d1_mf(indt2,indx2);
-load(strcat('mat_bpsomffk/eq-',num2str(NOs(ii)),'.mat'));
+load(strcat('../mat_bpsomffk/eq-',num2str(NOs(ii)),'.mat'));
 d1_somf=d1;
 d2_z2=d1_somf(indt2,indx2);
 comp2=[eq,zeros(n1,ngap),d1_mf,zeros(n1,ngap),eq-d1_mf,zeros(n1,ngap),d1_somf,zeros(n1,ngap),eq-d1_somf]; 

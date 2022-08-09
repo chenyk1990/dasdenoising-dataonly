@@ -3,7 +3,7 @@
 % Dec, 22, 2021
 
 clc;clear;close all;
-addpath(genpath('subroutines/'));
+addpath(genpath('../subroutines/'));
 
 NOs=[1,20,10,25,11,2];
 labels={...                                          %P-arrival sample NO from the SEGY file
@@ -22,54 +22,54 @@ x=1:n2*3+2*ngap;
 %% first one
 ii=1;
 if ~ismember(NOs(ii),[14,16,17,27,47,52])
-    load(strcat('mat_raw/eq-',num2str(NOs(ii)),'.mat'));
+    load(strcat('../mat_raw/eq-',num2str(NOs(ii)),'.mat'));
 end
 eq=d1;
-load(strcat('mat_bpsomffk/eq-',num2str(NOs(ii)),'.mat'));
+load(strcat('../mat_bpsomffk/eq-',num2str(NOs(ii)),'.mat'));
 comp1=[eq,zeros(n1,ngap),d1,zeros(n1,ngap),eq-d1]; 
 %% second one
 ii=2;
 if ~ismember(NOs(ii),[14,16,17,27,47,52])
-    load(strcat('mat_raw/eq-',num2str(NOs(ii)),'.mat'));
+    load(strcat('../mat_raw/eq-',num2str(NOs(ii)),'.mat'));
 end
 eq=d1;
-load(strcat('mat_bpsomffk/eq-',num2str(NOs(ii)),'.mat'));
+load(strcat('../mat_bpsomffk/eq-',num2str(NOs(ii)),'.mat'));
 comp2=[eq,zeros(n1,ngap),d1,zeros(n1,ngap),eq-d1]; 
 
 %% third one
 ii=3;
 if ~ismember(NOs(ii),[14,16,17,27,47,52])
-    load(strcat('mat_raw/eq-',num2str(NOs(ii)),'.mat'));
+    load(strcat('../mat_raw/eq-',num2str(NOs(ii)),'.mat'));
 end
 eq=d1;
-load(strcat('mat_bpsomffk/eq-',num2str(NOs(ii)),'.mat'));
+load(strcat('../mat_bpsomffk/eq-',num2str(NOs(ii)),'.mat'));
 comp3=[eq,zeros(n1,ngap),d1,zeros(n1,ngap),eq-d1]; 
 
 %% fourth one
 ii=4;
 if ~ismember(NOs(ii),[14,16,17,27,47,52])
-    load(strcat('mat_raw/eq-',num2str(NOs(ii)),'.mat'));
+    load(strcat('../mat_raw/eq-',num2str(NOs(ii)),'.mat'));
 end
 eq=d1;
-load(strcat('mat_bpsomffk/eq-',num2str(NOs(ii)),'.mat'));
+load(strcat('../mat_bpsomffk/eq-',num2str(NOs(ii)),'.mat'));
 comp4=[eq,zeros(n1,ngap),d1,zeros(n1,ngap),eq-d1]; 
 
 %% fifth one
 ii=5;
 if ~ismember(NOs(ii),[14,16,17,27,47,52])
-    load(strcat('mat_raw/eq-',num2str(NOs(ii)),'.mat'));
+    load(strcat('../mat_raw/eq-',num2str(NOs(ii)),'.mat'));
 end
 eq=d1;
-load(strcat('mat_bpsomffk/eq-',num2str(NOs(ii)),'.mat'));
+load(strcat('../mat_bpsomffk/eq-',num2str(NOs(ii)),'.mat'));
 comp5=[eq,zeros(n1,ngap),d1,zeros(n1,ngap),eq-d1]; 
 
 %% sixth one
 ii=6;
 if ~ismember(NOs(ii),[14,16,17,27,47,52])
-    load(strcat('mat_raw/eq-',num2str(NOs(ii)),'.mat'));
+    load(strcat('../mat_raw/eq-',num2str(NOs(ii)),'.mat'));
 end
 eq=d1;
-load(strcat('mat_bpsomffk/eq-',num2str(NOs(ii)),'.mat'));
+load(strcat('../mat_bpsomffk/eq-',num2str(NOs(ii)),'.mat'));
 comp6=[eq,zeros(n1,ngap),d1,zeros(n1,ngap),eq-d1]; 
 
 %% combined figure

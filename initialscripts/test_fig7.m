@@ -3,17 +3,17 @@
 % Dec, 23, 2021
 
 clc;clear;close all;
-addpath(genpath('subroutines/'));
+addpath(genpath('../subroutines/'));
 
 %% load data
 eq=zeros(2000,960);
 [n1,n2]=size(eq);
 ii=3;%reasonable
 if ~ismember(ii,[14,16,17,27,47,52])
-    load(strcat('mat_raw/eq-',num2str(ii),'.mat'));
+    load(strcat('../mat_raw/eq-',num2str(ii),'.mat'));
 end
 eq=d1;
-load(strcat('mat_bpsomffk/eq-',num2str(ii),'.mat'));
+load(strcat('../mat_bpsomffk/eq-',num2str(ii),'.mat'));
 figure;das_imagesc([eq,d1,eq-d1]);
 
 inds=20:20:n2;
