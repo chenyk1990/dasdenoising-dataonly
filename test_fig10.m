@@ -114,16 +114,16 @@ annotation(gcf,'arrow',[0.627 0.627],[0.281 0.311],'linewidth',2,'color','g');
 %% add zooming framebox
 
 a1=axes('Parent',gcf,'Position',[0.287,0.68,0.149,0.15]);
-das_imagesc(d1_z1,10,2);axis off;
+das_imagesc(d1_z1,5,2);axis off;
 
 a1=axes('Parent',gcf,'Position',[0.600,0.68,0.149,0.15]);
-das_imagesc(d1_z2,10,2);axis off;
+das_imagesc(d1_z2,5,2);axis off;
 
 
 a1=axes('Parent',gcf,'Position',[0.287,0.18,0.149,0.15]);
-das_imagesc(d2_z1,100,2);axis off;
+das_imagesc(d2_z1,50,2);axis off;
 
 a1=axes('Parent',gcf,'Position',[0.600,0.18,0.149,0.15]);
-das_imagesc(d2_z2,100,2);axis off;
+das_imagesc(d2_z2,50,2);axis off;
 
 print(gcf,'-depsc','-r300','fig10.eps');

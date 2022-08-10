@@ -87,8 +87,8 @@ colormap(jet);
 
 subplot(2,4,6);
 imagesc(k2,f2,abs(D2));caxis([0,100]);
-ylabel('Frequency (Hz)','Fontsize',20,'fontweight','bold');
-xlabel('Normalized wavenumber','Fontsize',20,'fontweight','bold');
+ylabel('Wavenumber (1/km)','Fontsize',20,'fontweight','bold');
+xlabel('Normalized frequency','Fontsize',20,'fontweight','bold');
 title('FK spectrum','Fontsize',20,'fontweight','bold');
 set(gca,'Linewidth',2,'Fontsize',20,'Fontweight','bold');
 ylim([0,20]);
@@ -103,8 +103,8 @@ colormap(jet);
 
 subplot(2,4,8);
 imagesc(k2,f2,abs(D22));caxis([0,100]);
-ylabel('Frequency (Hz)','Fontsize',20,'fontweight','bold');
-xlabel('Normalized wavenumber','Fontsize',20,'fontweight','bold');
+ylabel('Wavenumber (1/km)','Fontsize',20,'fontweight','bold');
+xlabel('Normalized frequency','Fontsize',20,'fontweight','bold');
 title('FK spectrum (w=0.02)','Fontsize',20,'fontweight','bold');
 set(gca,'Linewidth',2,'Fontsize',20,'Fontweight','bold');
 ylim([0,20]);

@@ -17,6 +17,20 @@ eq=d1;
 load(strcat('mat_bpsomffk/eq-',num2str(ii),'.mat'));
 figure;das_imagesc([eq,d1,eq-d1]);
 
+%% pick manually
+xx1=1:n2;
+figure('units','normalized','Position',[0.2 0.4 1, 0.8],'color','w');
+yc_imagesc(d1,99,1,xx1,1:n1);
+load second_picks.mat
+% [x1,y1]=getpts;
+% save second_picks.mat x1 y1
+
+yy1=round(interp1(x1(1:2:end),y1(1:2:end),xx1,'spline'));
+times=yy1;
+
+figure;yc_imagesc(d1,99,1,xx1,1:n1);hold on;plot(x1,y1,'ro');plot(xx1,yy1,'bo');
+
+
 inds=20:20:n2; %works fine
 inds=100:10:n2;
 inds=inds(1:30);
@@ -32,6 +46,7 @@ O=ones(size(inds));O0=ones(size(inds));
 
 times0=[O0-1]*0.0005;
 times=[O-1]*0.0005;
+timest=[yy1(inds)-1]*0.0005; %true
 %name
 for ii=1:30
     stname{ii}=strcat('Channel:',num2str(inds(ii)));
@@ -54,6 +69,7 @@ for ir=nr:-1:1
     plot(t,wav,'r','linewidth',2);
     plot([times0(ir),times0(ir)],[min(wav),max(wav)],'g','linewidth',2);
     plot([times(ir),times(ir)],[min(wav),max(wav)],'b','linewidth',2);
+    plot([timest(ir),timest(ir)],[min(wav),max(wav)],'m-.','linewidth',2);
     ylim([min(wav),max(wav)]);
     wav0=traces0(:,ir+15);
     wav=traces(:,ir+15);
@@ -62,10 +78,11 @@ for ir=nr:-1:1
     plot(t,wav,'r','linewidth',2);
     plot([times0(ir+15),times0(ir+15)],[min(wav),max(wav)],'g','linewidth',2);
     plot([times(ir+15),times(ir+15)],[min(wav),max(wav)],'b','linewidth',2);
+    plot([timest(ir+15),timest(ir+15)],[min(wav),max(wav)],'m-.','linewidth',2);
     ylim([min(wav),max(wav)]);
     
 end
-legend('Raw waveform','Denoised waveform','Picked arrival from raw data','Picked arrival from denoised data','Position',[x0+0.15,y0-0.1,0.6,0.1],'NumColumns',4);
+legend('Raw waveform','Denoised waveform','Picked arrival from raw data','Picked arrival from denoised data','Ground-truth','Position',[x0+0.1,y0-0.1,0.6,0.1],'NumColumns',5);
 legend('boxoff');
 %
 %% add station name
