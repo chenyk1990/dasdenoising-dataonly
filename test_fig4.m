@@ -1,4 +1,4 @@
-% Script to plot Figure 4
+% Script to plot Figure 5
 % BY Yangkang Chen
 % Dec, 21, 2021
 % This script takes about 5-10 minutes
@@ -32,9 +32,10 @@ for ii=3
     d_bpsomffk=d1;
 end
 
+
 %ii=3: FORGE_78-32_iDASv3-P11_UTC190423213209.sgy, 1484, 3.394402, 0.910045
 
-t=[0:n1]*0.0005;
+t=[0:n1-1]*0.0005;
 x=1:n2;
 ngap=50;
 
@@ -43,99 +44,123 @@ d_bp2=[d_bp,zeros(n1,ngap),eq-d_bp];
 d_bpsomf2=[d_bpsomf,zeros(n1,ngap),eq-d_bpsomf];
 d_bpsomffk2=[d_bpsomffk,zeros(n1,ngap),eq-d_bpsomffk];
 x=1:ngap+n2*2;
-%% combined figure
+
+%% begin plotting
+% figure('units','normalized','Position',[0.0 0.0 0.45, 1],'color','w');
+nr=15;%number of stations in the first column
+x0=0.1;y0=0.05;dy=0.13/2;dx=0;
+%length: 0.5x0.5, 0.5x0.25, 0.25x0.5
+%% axis XY
+dh=(1-0.2)/3;dw=0.25;
+dh1=0.04;%axis height
+dy=0.04;
+
+dh1=0.06;dy=dh1;
+nr=3;
+labels={'(a)','(b)','(c)','(d)','(e)','(f)','(g)','(h)','(i)'};
+ylm=[-199,201];
+ylm2=[-199,401];
+ylm3=[-199,401];
+% traces=[623:631];
+traces=[15,16,310,311,624,625,631,778,779];
+
+%trace:624,625,631: perfect
+%311,
+
+il=0;
 figure('units','normalized','Position',[0.0 0.0 0.5, 1],'color','w');
-subplot(4,2,1);das_imagesc(eq2,100,2,x,t);
-ylabel('Time (s)','Fontsize',10,'fontweight','bold');
-xlabel('Channel','Fontsize',10,'fontweight','bold');
-set(gca,'Linewidth',2,'Fontsize',10,'Fontweight','bold');
-text(n2/2,-0.05,'Raw data','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-text(-200,-0.1,'(a)','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-annotation(gcf,'rectangle',[0.13 0.894 0.334 0.030],'linewidth',2,'color','g');
+for ir=1:3
+%% first column
+ix=traces(3*(ir-1)+1);
+a1=axes('Parent',gcf,'Position',[x0,y0+dy+dh*(nr-ir),dw,dh1]);
+plot(t,d_bpsomffk(:,ix),'k','linewidth',2); ylim(ylm);
+if ir<=2
+    set(gca,'xticklabel',[],'linewidth',2,'fontweight','bold');
+else
+    xlabel('Time (s)');set(gca,'linewidth',2,'fontweight','bold');
+end
+a1=axes('Parent',gcf,'Position',[x0,y0+2*dy+dh*(nr-ir),dw,dh1]);
+plot(t,d_bpsomf(:,ix),'k','linewidth',2); set(gca,'xticklabel',[],'linewidth',2,'fontweight','bold');ylim(ylm);
+a1=axes('Parent',gcf,'Position',[x0,y0+3*dy+dh*(nr-ir),dw,dh1]);
+plot(t,d_bp(:,ix),'k','linewidth',2); set(gca,'xticklabel',[],'linewidth',2,'fontweight','bold');ylim(ylm);
+a1=axes('Parent',gcf,'Position',[x0,y0+4*dy+dh*(nr-ir),dw,dh1]);
+plot(t,eq(:,ix),'k','linewidth',2); set(gca,'xticklabel',[],'linewidth',2,'fontweight','bold'); ylim(ylm);title(strcat('Channel:',num2str(ix)));
 
-subplot(4,2,2);das_imagesc(d_bp2,100,2,x,t);
-ylabel('Time (s)','Fontsize',10,'fontweight','bold');
-xlabel('Channel','Fontsize',10,'fontweight','bold');
-set(gca,'Linewidth',2,'Fontsize',10,'Fontweight','bold');
-text(n2/2,-0.05,'BP','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-text(n2+ngap+n2/2,-0.05,'Removed noise','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-annotation(gcf,'textarrow',[0.679 0.700],...
-    [0.85 0.90],'Color','r','TextColor','r','HorizontalAlignment','center',...
-    'String',{'High-amplitude erratic noise'},...
-    'LineWidth',2,...
-    'FontSize',10,'fontweight','bold');
-text(-200,-0.1,'(b)','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-annotation(gcf,'rectangle',[0.57 0.894 0.334 0.030],'linewidth',2,'color','g');
+%add component
+a1=axes('Parent',gcf,'Position',[x0,y0+dy+dh*(nr-ir)+0.015,dw,dh1]);
+text(0.01,dy*10,'BP+SOMF+FK','color','r','Fontsize',10,'fontweight','bold');axis off;
+a1=axes('Parent',gcf,'Position',[x0,y0+2*dy+dh*(nr-ir)+0.015,dw,dh1]);
+text(0.01,dy*10,'BP+SOMF','color','r','Fontsize',10,'fontweight','bold');axis off;
+a1=axes('Parent',gcf,'Position',[x0,y0+3*dy+dh*(nr-ir)+0.015,dw,dh1]);
+text(0.01,dy*10,'BP','color','r','Fontsize',10,'fontweight','bold');axis off;
+a1=axes('Parent',gcf,'Position',[x0,y0+4*dy+dh*(nr-ir)+0.015,dw,dh1]);
+text(0.01,dy*10,'Raw data','color','r','Fontsize',10,'fontweight','bold');axis off;
+%add label
+il=il+1;
+a1=axes('Parent',gcf,'Position',[x0,y0+5*dy+dh*(nr-ir)+0.015,dw,dh1]);
+text(-0.1,0,labels(il),'color','k','Fontsize',15,'fontweight','bold');axis off;
 
-subplot(4,2,3);das_imagesc(d_bpsomf2,100,2,x,t);
-ylabel('Time (s)','Fontsize',10,'fontweight','bold');
-xlabel('Channel','Fontsize',10,'fontweight','bold');
-set(gca,'Linewidth',2,'Fontsize',10,'Fontweight','bold');
-text(n2/2,-0.05,'BP+SOMF','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-text(n2+ngap+n2/2,-0.05,'Removed noise','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-annotation(gcf,'textarrow',[0.190 0.192],...
-    [0.65 0.694],'Color','r','TextColor','r','HorizontalAlignment','center',...
-    'String',{'Horizontal noise'},...
-    'LineWidth',2,...
-    'FontSize',10,'fontweight','bold');
-text(-200,-0.1,'(c)','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-annotation(gcf,'rectangle',[0.13 0.675 0.334 0.030],'linewidth',2,'color','g');
+%% Second column
+ix=traces(3*(ir-1)+2);
+a1=axes('Parent',gcf,'Position',[x0+0.3,y0+dy+dh*(nr-ir),dw,dh1]);
+plot(t,d_bpsomffk(:,ix),'k','linewidth',2); ylim(ylm2);
+if ir<=2
+    set(gca,'xticklabel',[],'linewidth',2,'fontweight','bold');
+else
+    xlabel('Time (s)');set(gca,'linewidth',2,'fontweight','bold');
+end
+a1=axes('Parent',gcf,'Position',[x0+0.3,y0+2*dy+dh*(nr-ir),dw,dh1]);
+plot(t,d_bpsomf(:,ix),'k','linewidth',2); set(gca,'xticklabel',[],'linewidth',2,'fontweight','bold');ylim(ylm2);
+a1=axes('Parent',gcf,'Position',[x0+0.3,y0+3*dy+dh*(nr-ir),dw,dh1]);
+plot(t,d_bp(:,ix),'k','linewidth',2); set(gca,'xticklabel',[],'linewidth',2,'fontweight','bold');ylim(ylm2);
+a1=axes('Parent',gcf,'Position',[x0+0.3,y0+4*dy+dh*(nr-ir),dw,dh1]);
+plot(t,eq(:,ix),'k','linewidth',2); set(gca,'xticklabel',[],'linewidth',2,'fontweight','bold'); ylim(ylm2);title(strcat('Channel:',num2str(ix)));
 
-subplot(4,2,4);das_imagesc(d_bpsomffk2,100,2,x,t);
-ylabel('Time (s)','Fontsize',10,'fontweight','bold');
-xlabel('Channel','Fontsize',10,'fontweight','bold');
-set(gca,'Linewidth',2,'Fontsize',10,'Fontweight','bold');
-text(n2/2,-0.05,'BP+SOMF+FK','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-text(n2+ngap+n2/2,-0.05,'Removed noise','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-text(-200,-0.1,'(d)','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-annotation(gcf,'rectangle',[0.57 0.675 0.334 0.030],'linewidth',2,'color','g');
-%zomming area
-% annotation(gcf,'rectangle',...
-%     [0.13 0.85 0.335 0.065]);
+%add component
+a1=axes('Parent',gcf,'Position',[x0+0.3,y0+dy+dh*(nr-ir)+0.015,dw,dh1]);
+text(0.01,dy*10,'BP+SOMF+FK','color','r','Fontsize',10,'fontweight','bold');axis off;
+a1=axes('Parent',gcf,'Position',[x0+0.3,y0+2*dy+dh*(nr-ir)+0.015,dw,dh1]);
+text(0.01,dy*10,'BP+SOMF','color','r','Fontsize',10,'fontweight','bold');axis off;
+a1=axes('Parent',gcf,'Position',[x0+0.3,y0+3*dy+dh*(nr-ir)+0.015,dw,dh1]);
+text(0.01,dy*10,'BP','color','r','Fontsize',10,'fontweight','bold');axis off;
+a1=axes('Parent',gcf,'Position',[x0+0.3,y0+4*dy+dh*(nr-ir)+0.015,dw,dh1]);
+text(0.01,dy*10,'Raw data','color','r','Fontsize',10,'fontweight','bold');axis off;
+%label
+il=il+1;
+a1=axes('Parent',gcf,'Position',[x0+0.3,y0+5*dy+dh*(nr-ir)+0.015,dw,dh1]);
+text(-0.1,0,labels(il),'color','k','Fontsize',15,'fontweight','bold');axis off;
 
+%% Third column
+ix=traces(3*(ir-1)+3);
+a1=axes('Parent',gcf,'Position',[x0+0.6,y0+dy+dh*(nr-ir),dw,dh1]);
+plot(t,d_bpsomffk(:,ix),'k','linewidth',2); ylim(ylm3);
+if ir<=2
+    set(gca,'xticklabel',[],'linewidth',2,'fontweight','bold');
+else
+    xlabel('Time (s)');set(gca,'linewidth',2,'fontweight','bold');
+end
+a1=axes('Parent',gcf,'Position',[x0+0.6,y0+2*dy+dh*(nr-ir),dw,dh1]);
+plot(t,d_bpsomf(:,ix),'k','linewidth',2); set(gca,'xticklabel',[],'linewidth',2,'fontweight','bold');ylim(ylm3);
+a1=axes('Parent',gcf,'Position',[x0+0.6,y0+3*dy+dh*(nr-ir),dw,dh1]);
+plot(t,d_bp(:,ix),'k','linewidth',2); set(gca,'xticklabel',[],'linewidth',2,'fontweight','bold');ylim(ylm3);
+a1=axes('Parent',gcf,'Position',[x0+0.6,y0+4*dy+dh*(nr-ir),dw,dh1]);
+plot(t,eq(:,ix),'k','linewidth',2); set(gca,'xticklabel',[],'linewidth',2,'fontweight','bold');ylim(ylm3);title(strcat('Channel:',num2str(ix)));
+%add component
+a1=axes('Parent',gcf,'Position',[x0+0.6,y0+dy+dh*(nr-ir)+0.015,dw,dh1]);
+text(0.01,dy*10,'BP+SOMF+FK','color','r','Fontsize',10,'fontweight','bold');axis off;
+a1=axes('Parent',gcf,'Position',[x0+0.6,y0+2*dy+dh*(nr-ir)+0.015,dw,dh1]);
+text(0.01,dy*10,'BP+SOMF','color','r','Fontsize',10,'fontweight','bold');axis off;
+a1=axes('Parent',gcf,'Position',[x0+0.6,y0+3*dy+dh*(nr-ir)+0.015,dw,dh1]);
+text(0.01,dy*10,'BP','color','r','Fontsize',10,'fontweight','bold');axis off;
+a1=axes('Parent',gcf,'Position',[x0+0.6,y0+4*dy+dh*(nr-ir)+0.015,dw,dh1]);
+text(0.01,dy*10,'Raw data','color','r','Fontsize',10,'fontweight','bold');axis off;
+%label
+il=il+1;
+a1=axes('Parent',gcf,'Position',[x0+0.6,y0+5*dy+dh*(nr-ir)+0.015,dw,dh1]);
+text(-0.1,0,labels(il),'color','k','Fontsize',15,'fontweight','bold');axis off;
 
-inds1=1:400;
-subplot(4,2,5);das_imagesc(eq2(inds1,:),100,2,x,t(inds1));
-ylabel('Time (s)','Fontsize',10,'fontweight','bold');
-xlabel('Channel','Fontsize',10,'fontweight','bold');
-set(gca,'Linewidth',2,'Fontsize',10,'Fontweight','bold');
-text(n2/2,-0.01,'Raw data (zoomed)','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-text(-200,-0.02,'(e)','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
+end
 
-subplot(4,2,6);das_imagesc(d_bp2(inds1,:),100,2,x,t(inds1));
-ylabel('Time (s)','Fontsize',10,'fontweight','bold');
-xlabel('Channel','Fontsize',10,'fontweight','bold');
-set(gca,'Linewidth',2,'Fontsize',10,'Fontweight','bold');
-text(n2/2,-0.01,'BP (zoomed)','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-text(n2+ngap+n2/2,-0.01,'Removed noise','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-text(-200,-0.02,'(f)','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-annotation(gcf,'textarrow',[0.679 0.700],...
-    [0.42 0.47],'Color','r','TextColor','r','HorizontalAlignment','center',...
-    'String',{'High-amplitude erratic noise'},...
-    'LineWidth',2,...
-    'FontSize',10,'fontweight','bold');
-
-subplot(4,2,7);das_imagesc(d_bpsomf2(inds1,:),100,2,x,t(inds1));
-ylabel('Time (s)','Fontsize',10,'fontweight','bold');
-xlabel('Channel','Fontsize',10,'fontweight','bold');
-set(gca,'Linewidth',2,'Fontsize',10,'Fontweight','bold');
-text(n2/2,-0.01,'BP+SOMF (zoomed)','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-text(n2+ngap+n2/2,-0.01,'Removed noise','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-text(-200,-0.02,'(g)','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-annotation(gcf,'textarrow',[0.189 0.210],...
-    [0.202 0.246],'Color','r','TextColor','r','HorizontalAlignment','center',...
-    'String',{'Horizontal noise'},...
-    'LineWidth',2,...
-    'FontSize',10,'fontweight','bold');
-
-subplot(4,2,8);das_imagesc(d_bpsomffk2(inds1,:),100,2,x,t(inds1));
-ylabel('Time (s)','Fontsize',10,'fontweight','bold');
-xlabel('Channel','Fontsize',10,'fontweight','bold');
-set(gca,'Linewidth',2,'Fontsize',10,'Fontweight','bold');
-text(n2/2,-0.01,'BP+SOMF+FK (zoomed)','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-text(n2+ngap+n2/2,-0.01,'Removed noise','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
-text(-200,-0.02,'(h)','color','k','Fontsize',10,'fontweight','bold','HorizontalAlignment','center');
 print(gcf,'-depsc','-r300','fig4.eps');
-
 
 
