@@ -5,14 +5,14 @@
 clc;clear;close all;
 addpath(genpath('subroutines/'));
 
-%% load data
+%% load data (This data is from https://github.com/chenyk1990/dasdenoising-dataonly/blob/main/subroutines/micro_sf_3001_334_3.mat)
 load micro_sf_3001_334_3.mat
 d=das_scale(data(:,:,1),2);
 dt=0.0005;
 t=[0:nt-1]*dt;
 h=[0:nx-1]*dx+0;
 
-%% load noise
+%% load noise (This data is from https://github.com/chenyk1990/dasdenoising-dataonly/blob/main/subroutines/micro_sf_3001_334_3.mat)
 load fig2noise.mat
 
 randn('state',211111);
