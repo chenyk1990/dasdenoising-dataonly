@@ -3,9 +3,9 @@
 
 ## Description
 
-**DASdenoising** package is used to store the reproducible and open-access scripts for denoising the FORGE DAS dataset
+**DASdenoising** (https://github.com/chenyk1990/dasdenoising) package is used to store the reproducible and open-access scripts for denoising the FORGE DAS dataset
 
-**DASdenoising-dataonly** package is used to store the reproducible and open-access scripts, and all raw datasets and denoised datasets in the denoising project for the FORGE DAS dataset.
+**DASdenoising-dataonly** (https://github.com/chenyk1990/dasdenoising-dataonly) package is used to store the reproducible and open-access scripts, and all raw datasets and denoised datasets in the denoising project for the FORGE DAS dataset.
 
 ## Reference
 If you find this package useful, please do not forget to cite the following paper.
