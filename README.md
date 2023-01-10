@@ -11,7 +11,7 @@
 If you find this package useful, please do not forget to cite the following paper.
 
 
-    Chen, Y., Savvaidis, A., Fomel, S., Chen, Y., Saad, O.M., Wang, H., Oboue, Y.A.S.I., Yang, L., & Chen, W. (2022). Denoising of distributed acoustic sensing seismic data using an integrated framework, Seismological Research Letters, 94(1), 457–472, doi: 10.1785/0220220117.
+    Chen, Y., Savvaidis, A., Fomel, S., Chen, Y., Saad, O.M., Wang, H., Oboue, Y.A.S.I., Yang, L., & Chen, W. (2023). Denoising of distributed acoustic sensing seismic data using an integrated framework, Seismological Research Letters, 94(1), 457–472, doi: 10.1785/0220220117.
     
 BibTeX:
 	
